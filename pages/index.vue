@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="p-5">
-    123
+  <div class="">
+    <PostTypeSelector />
   </div>
 </template>

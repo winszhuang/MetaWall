@@ -5,7 +5,10 @@ export default defineNuxtConfig({
   typescript: {
     shim: false
   },
-  css: ["~/assets/css/tailwind.css",],
+  css: [
+    "~/assets/css/tailwind.css",
+    "@mdi/font/css/materialdesignicons.min.css"
+  ],
   build: {
     postcss: {
       postcssOptions: {
@@ -15,5 +18,10 @@ export default defineNuxtConfig({
         },
       },
     },
+    transpile: [
+      '@fortawesome/fontawesome-svg-core',
+      '@fortawesome/free-brands-svg-icons',
+      '@fortawesome/vue-fontawesome'
+    ]
   }
 })

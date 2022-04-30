@@ -5,9 +5,33 @@ module.exports = {
     "./components/**/*.{vue,js}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
-    "./plugins/**/*.{js,ts}"
+    "./plugins/**/*.{js,ts}",
+    "./app.vue"
   ],
   theme: {
+    colors: {
+      primary: '#03438D',
+      white: '#FFFFFF',
+      black: '#000400',
+      grey: {
+        100: '#707070',
+        200: '#00040029',
+        300: 'EFECE7'
+      },
+      light: '#E2EDFA',
+      negative: '#F57375'
+    },
+    fontFamily: {
+      paytone: ['Paytone One'],
+      helvetica: ['Helvetica Neus'],
+      mono: ['Azeret Mono'],
+      noto: ['Noto Sans TC'],
+      baloo: ['"Baloo Da 2"'],
+      tapestry: ['Tapestry']
+    },
+    borderRadius: {
+      DEFAULT: '0.5rem'
+    },
     extend: {},
   },
   plugins: [

@@ -29,6 +29,9 @@ module.exports = {
       baloo: ['"Baloo Da 2"'],
       tapestry: ['Tapestry']
     },
+    borderRadius: {
+      DEFAULT: '0.5rem'
+    },
     extend: {},
   },
   plugins: [

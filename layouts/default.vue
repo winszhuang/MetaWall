@@ -1,8 +1,10 @@
 <template>
-  <main class="container mx-auto lg:px-16 px-4">
+  <div>
     <Header />
-    <div class="flex mt-12">
-      <slot />
-    </div>
-  </main>
+    <main class="bg-[url('../assets/image/bg.png')] h-full">
+      <div class="md:container mx-auto">
+        <slot />
+      </div>
+    </main>
+  </div>
 </template>

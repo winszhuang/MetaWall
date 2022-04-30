@@ -1,5 +1,5 @@
 <template>
-  <div class="w-72 border-2">
+  <div class="border-2">
     <Listbox v-model="selectedPerson">
       <div class="relative mt-1">
         <ListboxButton

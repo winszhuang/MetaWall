@@ -13,7 +13,7 @@ const hasError = ref(false);
 </script>
 
 <template>
-  <div class="w-80 font-noto">
+  <div class="xs:w-80 mx-4 xs:mx-0 font-noto">
     <div class="flex flex-col items-center">
       <img
         class=" border-2 rounded-[53px] mb-4"

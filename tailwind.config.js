@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
@@ -9,6 +10,10 @@ module.exports = {
     "./app.vue"
   ],
   theme: {
+    screens: {
+      xs: '375px',
+      ...defaultTheme.screens
+    },
     colors: {
       primary: '#03438D',
       white: '#FFFFFF',

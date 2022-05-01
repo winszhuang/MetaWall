@@ -18,7 +18,7 @@ const canSubmit = computed(() => {
 </script>
 
 <template>
-  <div class="w-80 font-noto">
+  <div class="xs:w-80 mx-4 xs:mx-0 font-noto">
     <inputer
       v-model:value="passwordData.password"
       title="輸入新密碼"

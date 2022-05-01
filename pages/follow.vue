@@ -37,6 +37,13 @@ const followList = [
       v-for="item in followList"
       :key="item.id"
       :info="item"
-      class="mb-4"/>
+      class="mb-4"
+    >
+      <template #default="{ info }">
+        <div class="text-sm font-noto">
+          您已追蹤{{ info.followTime }}天
+        </div>
+      </template>  
+    </PersonCard>
   </div>
 </template>

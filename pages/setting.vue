@@ -35,7 +35,7 @@ watch(currentOperate, (operate) => {
         :key="item.key"
       >
         <button 
-          class="text-base px-6 py-2 rounded-t border-2 border-black"
+          class="text-base px-6 py-2 rounded-t border-2 border-b-0 border-black"
           :class="item.key === currentOperate.key 
             ? 'bg-black text-white'
             : 'bg-white text-black'"

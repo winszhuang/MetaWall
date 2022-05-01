@@ -20,7 +20,8 @@ module.exports = {
         400: '#9B9893'
       },
       light: '#E2EDFA',
-      negative: '#F57375'
+      negative: '#F57375',
+      yellow: '#EEC32A'
     },
     fontFamily: {
       paytone: ['Paytone One'],

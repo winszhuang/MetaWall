@@ -25,17 +25,12 @@ const hasError = ref(false);
         上傳大頭照
       </button>
 
-      <label class="w-full mb-4">
-        <h6 class="mb-1">
-          暱稱
-        </h6>
-        <input 
-          class=" border-2 placeholder:text-base placeholder:leading-[22px] text-cyan-1 text-left block bg-cyan-5 w-full py-2 px-4 pr-3" 
-          placeholder="請輸入暱稱" 
-          type="text"
-          v-model="userInfo.name"
-        />
-      </label>
+      <Inputer
+        class="mb-4"
+        v-model="userInfo.name"
+        title="暱稱"
+        placeholder="請輸入暱稱"
+      />
       
       <section class="w-full mb-8">
         <h6 class="mb-1">

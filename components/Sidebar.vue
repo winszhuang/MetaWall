@@ -17,7 +17,7 @@ const sidebarList: Item[] = [
     text: '邊緣小杰',
     key: 'user',
     id: 'rjerilgj',
-    route: '/me'
+    route: '/setting'
   },
   {
     icon: bell,

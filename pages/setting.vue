@@ -30,11 +30,12 @@ watch(currentOperate, (operate) => {
     </h2>
 
     <nav class="flex font-noto mt-8">
+      <div class="mr-4"></div>
       <template 
         v-for="item in operation"
         :key="item.key"
       >
-        <button 
+        <button
           class="text-base px-6 py-2 rounded-t border-2 border-b-0 border-black"
           :class="item.key === currentOperate.key 
             ? 'bg-black text-white'

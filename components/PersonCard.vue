@@ -24,9 +24,7 @@ const props = defineProps<{
         </div>
       </div>
     </div>
-    
-    <div class=" text-sm font-noto">
-      您以追蹤{{ props.info.followTime }}天
-    </div>
+
+    <slot :info="props.info"/>
   </div>
 </template>

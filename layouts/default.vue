@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex flex-col h-screen">
     <Header />
-    <main class="bg-[url('@/assets/image/bg.png')] h-full">
+    <main class="bg-[url('@/assets/image/bg.png')] flex-1">
       <div class="md:container mx-auto">
         <div class="flex flex-row justify-between md:py-8 py-4 md:px-0 px-3">
           <!-- 主要貼文區塊 -->
@@ -10,8 +10,8 @@
           </div>
 
           <!-- 側邊攔 -->
-          <aside class="flex-1 hidden md:block">
-            <Sidebar />
+          <aside class="flex-1 hidden md:block ">
+            <Sidebar class="sticky top-8"/>
           </aside>
         </div>
       </div>

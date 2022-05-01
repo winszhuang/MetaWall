@@ -7,7 +7,8 @@ export interface Item {
   icon: any,
   text: string,
   key: string,
-  id: string
+  id: string,
+  route: string
 };
 
 const sidebarList: Item[] = [
@@ -15,19 +16,22 @@ const sidebarList: Item[] = [
     icon: userImg,
     text: '邊緣小杰',
     key: 'user',
-    id: 'rjerilgj'
+    id: 'rjerilgj',
+    route: '/me'
   },
   {
     icon: bell,
     text: '追蹤名單',
     key: 'track',
-    id: '484rthth'
+    id: '484rthth',
+    route: '/follow'
   },
   {
     icon: thumbupImg,
     text: '我按讚的文章',
     key: 'like',
-    id: '994rgergh'
+    id: '994rgergh',
+    route: '/like'
   }
 ];
 </script>
@@ -45,17 +49,20 @@ const sidebarList: Item[] = [
 
     <template 
       v-for="(item, index) in sidebarList"
-      :key="item.id">
-      <div :class="{ 'mb-[22px]': index !== (sidebarList.length - 1) }">
-        <img
-          width="50px"
-          :src="(item as Item).icon" 
-          alt=""
-          class=" inline-block mr-4">
-        <h6 class="inline-block font-bold">
-          {{ (item as Item).text }}
-        </h6>
-      </div>
+      :key="item.id"
+    >
+      <NuxtLink :to="item.route">
+        <div :class="{ 'mb-[22px]': index !== (sidebarList.length - 1) }">
+          <img
+            width="50px"
+            :src="(item as Item).icon" 
+            alt=""
+            class=" inline-block mr-4">
+          <h6 class="inline-block font-bold">
+            {{ (item as Item).text }}
+          </h6>
+        </div>
+      </NuxtLink>
     </template>
   </div>
 </template>

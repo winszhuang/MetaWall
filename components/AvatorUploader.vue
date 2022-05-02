@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { errorMessgae } from '@/constants/errorMessage';
-import { UploadHandler, EmitData } from './ImgUploader.vue';
+import { UploadHandler, EmitData } from './Uploader.vue';
 
 const props = withDefaults(defineProps<{
   text?: string,
@@ -45,7 +45,7 @@ const widthGreaterThan300px = (imgElement: HTMLImageElement) => {
       alt="" 
       width="107px"
     >
-    <ImgUploader
+    <Uploader
       @update="emitUpdate"
       :text="props.text"
       :validation-func-list="[ratio1To1, widthGreaterThan300px]"/>

@@ -12,6 +12,7 @@ export interface EmitData {
 
 const props = withDefaults(defineProps<{
   text?: string,
+  uploadType?: string,
   validationFuncList: ValidateImgFunc[]
 }>(), {
   text: '上傳',

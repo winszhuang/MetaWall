@@ -1,23 +1,18 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+const route = useRoute();
+const router = useRouter();
 
+const baseUrl = '/setting';
 const operation = [
   {
-    key: 'editName',
+    path: `${baseUrl}/editName`,
     name: '暱稱修改',
   },
   {
-    key: 'resetPassword',
+    path: `${baseUrl}/resetPassword`,
     name: '重設密碼',
   }
 ];
-
-const router = useRouter();
-const currentOperate = ref(operation[0]);
-
-watch(currentOperate, (operate) => {
-  router.push(`/setting/${operate.key}`);
-}, { immediate: true });
 </script>
 
 <template>
@@ -33,14 +28,14 @@ watch(currentOperate, (operate) => {
       <div class="mr-4"></div>
       <template 
         v-for="item in operation"
-        :key="item.key"
+        :key="item.path"
       >
         <button
           class="text-base px-6 py-2 rounded-t border-2 border-b-0 border-black"
-          :class="item.key === currentOperate.key 
+          :class="item.path === route.path 
             ? 'bg-black text-white'
             : 'bg-white text-black'"
-          @click="currentOperate = item"
+          @click="router.push(item.path)"
         >
           {{ item.name }}
         </button>

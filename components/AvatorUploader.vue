@@ -1,14 +1,6 @@
 <script lang="ts" setup>
 import { errorMessgae } from '@/constants/errorMessage';
-
-export type UploadHandler = (data: EmitData) => void;
-export interface EmitData {
-  info: {
-    message: string,
-    success: boolean
-  },
-  url: string
-};
+import { UploadHandler, EmitData } from './ImgUploader.vue';
 
 const props = withDefaults(defineProps<{
   text?: string,
@@ -22,50 +14,25 @@ const emits = defineEmits<{
 const currentImageUrl = ref('');
 const imgRef = ref<HTMLImageElement>();
 
-const resetImageUrl = () => currentImageUrl.value = '';
-
-const getNewFile = (e: Event) => {
-  try {
-    const file = (e.target as HTMLInputElement).files[0];
-  
-    if (file.type.match(/image.*/)) {
-      currentImageUrl.value = URL.createObjectURL(file);
-
-      imgRef.value.onload = () => {
-        const width = imgRef.value.naturalWidth | imgRef.value.width;
-        const height = imgRef.value.naturalHeight | imgRef.value.height;
-
-        if (width < 300) {
-          resetImageUrl();
-          emits('update', {
-            url: '',
-            info: { success: false, message: errorMessgae.ratio11AndGreaterThan300 }
-          });
-          return;
-        }
-
-        if (width !== height) {
-          resetImageUrl();
-          emits('update', {
-            url: '',
-            info: { success: false, message: errorMessgae.ratio11AndGreaterThan300 }
-          });
-          return;
-        }
-
-        emits('update', {
-          url: currentImageUrl.value,
-          info: { success: true, message: '' }
-        });
-      }
-      return;
-    }
-  
-    throw new Error('file is not a image');
-  } catch (error) {
-    console.error(error);
-  }
+const emitUpdate: UploadHandler = (data) => {
+  currentImageUrl.value = data.url;
+  emits('update', data);
 };
+
+/** 驗證圖片是否1:1比例 */
+const ratio1To1 = (imgElement: HTMLImageElement) => {
+  const width = imgElement.naturalWidth | imgElement.width;
+  const height = imgElement.naturalHeight | imgElement.height;
+
+  return width === height ? true : errorMessgae.ratio11AndGreaterThan300;
+}
+
+/** 驗證圖片寬度是否大於300px */
+const widthGreaterThan300px = (imgElement: HTMLImageElement) => {
+  const width = imgElement.naturalWidth | imgElement.width;
+  
+  return width >= 300 ? true : errorMessgae.ratio11AndGreaterThan300;
+}
 
 </script>
 
@@ -76,17 +43,11 @@ const getNewFile = (e: Event) => {
       class="mx-auto border-2 rounded-[100px] mb-4"
       :src="currentImageUrl || '../assets/image/user_default.png'" 
       alt="" 
-      width="107px">
-    <input
-      @change="getNewFile"
-      hidden
-      accept="image/*"
-      class=" mb-3 py-1 px-6 bg-black text-white"
-      type="file" id="fileupload" name="fileupload" />
-    <label
-      for="fileupload"
-      class="block mb-3 py-1 px-6 bg-black text-white cursor-pointer">
-      {{ props.text }}
-    </label>
+      width="107px"
+    >
+    <ImgUploader
+      @update="emitUpdate"
+      :text="props.text"
+      :validation-func-list="[ratio1To1, widthGreaterThan300px]"/>
   </section>
 </template>

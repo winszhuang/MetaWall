@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { GenderEnum } from '@/enum/gender';
-import { UploadHandler } from '@/components/AvatorUploader.vue';
+import { UploadHandler } from '@/components/ImgUploader.vue';
 
 const imgUrl = ref('');
 const currentErrorMessage = ref('');

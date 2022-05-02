@@ -1,1 +1,6 @@
-export type ValidateImgFunc = (imgElement: HTMLImageElement) => true | string;
+interface ImageData {
+  imgElement: HTMLImageElement,
+  file: File
+}
+
+export type ValidateImgFunc = (imgData: ImageData) => true | string;

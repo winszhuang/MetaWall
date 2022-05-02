@@ -32,7 +32,10 @@ const getNewFile = (e: Event) => {
       image.src = imgUrl;
       image.onload = () => {
         for (const customValidationFunc of props.validationFuncList) {
-          const trueOrErrorMessage = customValidationFunc(image);
+          const trueOrErrorMessage = customValidationFunc({
+            imgElement: image,
+            file
+          });
 
           if (trueOrErrorMessage !== true) {
             emits('update', {
@@ -61,7 +64,7 @@ const getNewFile = (e: Event) => {
 </script>
 
 <template>
-  <div>
+  <div class="text-center">
     <input
       @change="getNewFile"
       hidden

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { errorMessgae } from '@/constants/errorMessage';
 import { UploadHandler, EmitData } from './Uploader.vue';
+import { ValidateImgFunc } from '@/types/validate';
 
 const props = withDefaults(defineProps<{
   text?: string,
@@ -20,7 +21,8 @@ const emitUpdate: UploadHandler = (data) => {
 };
 
 /** 驗證圖片是否1:1比例 */
-const ratio1To1 = (imgElement: HTMLImageElement) => {
+const ratio1To1: ValidateImgFunc = (imageData) => {
+  const { imgElement } = imageData;
   const width = imgElement.naturalWidth | imgElement.width;
   const height = imgElement.naturalHeight | imgElement.height;
 
@@ -28,7 +30,8 @@ const ratio1To1 = (imgElement: HTMLImageElement) => {
 }
 
 /** 驗證圖片寬度是否大於300px */
-const widthGreaterThan300px = (imgElement: HTMLImageElement) => {
+const widthGreaterThan300px: ValidateImgFunc = (imageData) => {
+  const { imgElement } = imageData;
   const width = imgElement.naturalWidth | imgElement.width;
   
   return width >= 300 ? true : errorMessgae.ratio11AndGreaterThan300;

@@ -38,14 +38,26 @@ const sidebarList: Item[] = [
 
 <template>
   <div class=" border-2 bg-white px-6 py-8">
-    <button 
-      class="font-mono font-bold text-center leading-5
+    <NuxtLink to="/create">
+      <button 
+        class="font-mono font-bold text-center leading-5
+          bg-primary text-white border-black
+            rounded border-2
+            py-4 mb-6
+            w-full">
+        張貼動態
+      </button>
+    </NuxtLink>
+    <!-- <NuxtLink 
+      to="/create"
+      class="block font-mono font-bold text-center leading-5
         bg-primary text-white border-black
           rounded border-2
           py-4 mb-6
-          w-full">
+          w-full"
+    >
       張貼動態
-    </button>
+    </NuxtLink> -->
 
     <template 
       v-for="(item, index) in sidebarList"

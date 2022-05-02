@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
@@ -9,6 +10,10 @@ module.exports = {
     "./app.vue"
   ],
   theme: {
+    screens: {
+      xs: '375px',
+      ...defaultTheme.screens
+    },
     colors: {
       primary: '#03438D',
       white: '#FFFFFF',
@@ -16,11 +21,14 @@ module.exports = {
       grey: {
         100: '#707070',
         200: '#00040029',
-        300: 'EFECE7',
-        400: '#9B9893'
+        300: '#EFECE7',
+        400: '#9B9893',
+        500: '#A8B0B9',
+        600: '#808080'
       },
       light: '#E2EDFA',
-      negative: '#F57375'
+      negative: '#F57375',
+      yellow: '#EEC32A'
     },
     fontFamily: {
       paytone: ['Paytone One'],

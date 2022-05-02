@@ -1,29 +1,30 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { GenderEnum } from '@/enum/gender';
+import { UploadHandler } from '@/components/AvatorUploader.vue';
 
+const imgUrl = ref('');
+const isFileFormatCorrect = ref(true);
 const userInfo = ref({
   avator: 'https://www.w3schools.com/howto/img_avatar.png',
   name: '邊緣小杰',
   gender: GenderEnum.Male
 });
 
-const hasError = ref(false);
+const handleAfterUpload: UploadHandler = (data) => {
+  isFileFormatCorrect.value = data.info.success;
+  imgUrl.value = data.url;
+};
 
 </script>
 
 <template>
   <div class="xs:w-80 mx-4 xs:mx-0 font-noto">
     <div class="flex flex-col items-center">
-      <img
-        class=" border-2 rounded-[53px] mb-4"
-        :src="userInfo.avator" 
-        alt="" 
-        width="107px">
-      
-      <button class=" mb-3 py-1 px-6 bg-black text-white">
-        上傳大頭照
-      </button>
+      <!-- 上傳圖片 -->
+      <AvatorUploader 
+        text="上傳大頭照"
+        @update="handleAfterUpload"/>
 
       <Inputer
         class="mb-4"
@@ -73,7 +74,7 @@ const hasError = ref(false);
 
       <!-- 錯誤警示 -->
       <section
-        v-if="hasError"
+        v-if="!isFileFormatCorrect"
         class="text-negative text-center text-sm mb-4">
         1.圖片寬高比必需為 1:1，請重新輸入<br/> 2. 解析度寬度至少 300像素以上，請重新輸入
       </section>

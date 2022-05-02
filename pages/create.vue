@@ -50,7 +50,7 @@ const handleAfterUpload: UploadHandler = (emitData) => {
         text="送出貼文"
         bg-color-class="bg-yellow active:bg-primary"
         text-color-class="text-black active:text-white"
-        width-class="w-[323px]"
+        width-class="sm:w-[323px] w-full"
       />
     </section>
 

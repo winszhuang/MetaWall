@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { errorMessgae } from '@/constants/errorMessage';
+
 export type UploadHandler = (data: EmitData) => void;
 export interface EmitData {
   info: {
@@ -37,7 +39,7 @@ const getNewFile = (e: Event) => {
           resetImageUrl();
           emits('update', {
             url: '',
-            info: { success: false, message: 'width needs to be greater than 300' }
+            info: { success: false, message: errorMessgae.ratio11AndGreaterThan300 }
           });
           return;
         }
@@ -46,14 +48,14 @@ const getNewFile = (e: Event) => {
           resetImageUrl();
           emits('update', {
             url: '',
-            info: { success: false, message: '1:1 ratio required' }
+            info: { success: false, message: errorMessgae.ratio11AndGreaterThan300 }
           });
           return;
         }
 
         emits('update', {
           url: currentImageUrl.value,
-          info: { success: true, message: 'upload success' }
+          info: { success: true, message: '' }
         });
       }
       return;

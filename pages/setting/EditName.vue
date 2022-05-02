@@ -4,6 +4,7 @@ import { GenderEnum } from '@/enum/gender';
 import { UploadHandler } from '@/components/AvatorUploader.vue';
 
 const imgUrl = ref('');
+const currentErrorMessage = ref('');
 const isFileFormatCorrect = ref(true);
 const userInfo = ref({
   avator: 'https://www.w3schools.com/howto/img_avatar.png',
@@ -13,6 +14,7 @@ const userInfo = ref({
 
 const handleAfterUpload: UploadHandler = (data) => {
   isFileFormatCorrect.value = data.info.success;
+  currentErrorMessage.value = data.info.message;
   imgUrl.value = data.url;
 };
 
@@ -73,11 +75,10 @@ const handleAfterUpload: UploadHandler = (data) => {
       </section>
 
       <!-- 錯誤警示 -->
-      <section
+      <pre
         v-if="!isFileFormatCorrect"
-        class="text-negative text-center text-sm mb-4">
-        1.圖片寬高比必需為 1:1，請重新輸入<br/> 2. 解析度寬度至少 300像素以上，請重新輸入
-      </section>
+        class="text-negative text-center text-sm mb-4"
+      >{{ currentErrorMessage }}</pre>
 
       <Btn
         text="送出更新"

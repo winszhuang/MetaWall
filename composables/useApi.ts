@@ -1,8 +1,10 @@
 import { $fetch, FetchContext, FetchOptions, FetchResponse } from 'ohmyfetch';
 import { ApiResponse } from '@/types/api';
 
-type FetchMethod = <T>(url: string, options?: FetchOptions<"json">) => Promise<ApiResponse<T>>;
-type Fetcher = Record<string, FetchMethod>;
+type MethodType = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options';
+
+type FetchMethod = <T>(url: string, body?: BodyInit | Record<string, any>) => Promise<ApiResponse<T>>;
+type Fetcher = Record<MethodType, FetchMethod>;
 
 export default () => {
   const apiInstance = $fetch.create({
@@ -12,16 +14,23 @@ export default () => {
     parseResponse: JSON.parse
   });
 
-  async function defaultMethod<T>(url: string, options: FetchOptions<"json">) {
-    return apiInstance<ApiResponse<T>>(url, options);
+  async function get<T>(url: string) {
+    return apiInstance<ApiResponse<T>>(url);
+  }
+
+  async function post<T>(url: string, body: BodyInit | Record<string, any>) {
+    return apiInstance<ApiResponse<T>>(url, { body, method: 'POST' });
+  }
+
+  async function put<T>(url: string, body: BodyInit | Record<string, any>) {
+    return apiInstance<ApiResponse<T>>(url, { body, method: 'PUT' });
+  }
+
+  async function patch<T>(url: string, body: BodyInit | Record<string, any>) {
+    return apiInstance<ApiResponse<T>>(url, { body, method: 'PATCH' });
   }
   
-  return {
-    get: <T>(url: string) => apiInstance<ApiResponse<T>>(url),
-    post: defaultMethod,
-    put: defaultMethod,
-    patch: defaultMethod
-  } as Fetcher;
+  return { get, post, put, patch } as Fetcher;
 }
 
 

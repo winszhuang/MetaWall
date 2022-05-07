@@ -14,6 +14,18 @@ const handleAfterUpload: UploadHandler = (emitData) => {
   currentErrorMessage.value = emitData.info.message;
   data.value.imgUrl = emitData.url;
 };
+
+const submitPost = async () => {
+  const { content, imgUrl } = data.value;
+  const result = await addPost({
+    content,
+    image: imgUrl
+  });
+
+  if (result.data) {
+    useRouter().push('/');
+  }
+}
 </script>
 
 <template>
@@ -25,7 +37,7 @@ const handleAfterUpload: UploadHandler = (emitData) => {
       </div>
     </h2>
   
-    <section class="border-2 rounded bg-white p-8 font-noto">
+    <section class="p-8 bg-white border-2 rounded font-noto">
       <Inputer
         v-model:value="data.content"
         title="貼文內容"
@@ -42,10 +54,11 @@ const handleAfterUpload: UploadHandler = (emitData) => {
 
       <pre
         v-if="!isFileFormatCorrect"
-        class="text-negative text-center text-sm mb-4"
+        class="mb-4 text-sm text-center text-negative"
       >{{ currentErrorMessage }}</pre>
 
       <Btn
+        @click="submitPost"
         class="mx-auto font-noto"
         text="送出貼文"
         bg-color-class="bg-yellow active:bg-primary"

@@ -6,3 +6,11 @@ interface GetSinglePostRes {
   author: getUserRes,
   createdAt: string
 }
+
+interface AddSinglePostReq {
+  content: string,
+  image?: string
+}
+
+type AddSinglePostRes = boolean;
+

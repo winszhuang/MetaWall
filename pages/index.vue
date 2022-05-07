@@ -41,9 +41,12 @@ watch(currentCategory, (category) => {
 
 // 根據更換query值，重新發api
 watch(() => route.query, async (queryObj) => {
-  searchValue.value = getSearchValueByCurrentQuery(queryObj) as string;
-  currentCategory.value = getCategoryByCurrentQuery(queryObj);
-  postList.value = (await useApi().get<GetSinglePostRes[]>(`/posts${route.fullPath}`)).data;
+  // 確定在該基本路由才處理，進入其他頁如/setting就不執行
+  if (route.path === '/') {
+    searchValue.value = getSearchValueByCurrentQuery(queryObj) as string;
+    currentCategory.value = getCategoryByCurrentQuery(queryObj);
+    postList.value = (await useApi().get<GetSinglePostRes[]>(`/posts${route.fullPath}`)).data;
+  }
 }, { immediate: true });
 </script>
 

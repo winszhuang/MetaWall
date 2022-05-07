@@ -28,7 +28,12 @@ module.exports = {
       },
       light: '#E2EDFA',
       negative: '#F57375',
-      yellow: '#EEC32A'
+      yellow: {
+        DEFAULT: '#EEC32A',
+        2: '#FAA722'
+      },
+      green: '#83C51D',
+      red: '#DE4B63'
     },
     fontFamily: {
       paytone: ['Paytone One'],

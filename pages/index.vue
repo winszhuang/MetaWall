@@ -61,19 +61,22 @@ watch(() => route.query, async (queryObj) => {
         @handle="updateQueryWithSearch"
       />
     </div>
-  
-    <!-- 貼文 -->
-    <Post 
-      v-for="post in postList"
-      :key="post._id"
-      :author="post.author.name"
-      :avator="post.author.avator"
-      :created-at="post.createdAt"
-      :content="post.content"
-      :image="post.image"
-      :likes="post.likes.length"
-      :id="post._id"
-      class="mb-4"
-    />
+
+    <template v-if="postList?.length > 0">
+      <!-- 貼文 -->
+      <Post 
+        v-for="post in postList"
+        :key="post._id"
+        :author="post.author.name"
+        :avator="post.author.avator"
+        :created-at="post.createdAt"
+        :content="post.content"
+        :image="post.image"
+        :likes="post.likes.length"
+        :id="post._id"
+        class="mb-4"
+      />
+    </template>
+    <PostEmpty v-else/>
   </div>
 </template>

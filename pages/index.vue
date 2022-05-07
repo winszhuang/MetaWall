@@ -1,34 +1,31 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 import { postCategory } from '@/constants/postCategory';
+import { LocationQuery } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
 const postList = ref<GetSinglePostRes[]>();
-const currentCategory = ref(postCategory[0]);
+const currentCategory = ref(getCategoryByCurrentQuery(route.query));
 const searchValue = ref('');
 
-const updateSearchValue = () => {
-  const queryObj = route.query;
-
-  if (queryObj.q) {
-    searchValue.value = queryObj.q as string;
-  }
+function getSearchValueByCurrentQuery(queryObj: LocationQuery) {
+  return queryObj.q || '';
 }
 
-const updateCurrentCategory = () => {
-  const queryObj = route.query;
-
+function getCategoryByCurrentQuery(queryObj: LocationQuery) {
   if (queryObj.dateSort) {
-    currentCategory.value = postCategory.find(category => category.queryString === `dateSort=${queryObj.dateSort}`);
-  } else if (queryObj.likesSort) {
-    currentCategory.value = postCategory.find(category => category.queryString === `likesSort=${queryObj.likesSort}`);
-
-    console.log(currentCategory.value);
+    return postCategory.find(category => category.queryString === `dateSort=${queryObj.dateSort}`);
   }
+  
+  if (queryObj.likesSort) {
+    return postCategory.find(category => category.queryString === `likesSort=${queryObj.likesSort}`);
+  }
+
+  return postCategory[0];
 }
 
-const updateQueryWithSearch = (value: string) => {
+function updateQueryWithSearch (value: string) {
   const newRoute = `/?${currentCategory.value.queryString}` + 
     (value ? `&q=${value}` : '');
     
@@ -40,12 +37,12 @@ watch(currentCategory, (category) => {
     (route.query.q ? `&q=${route.query.q}` : '');
 
   router.push(newRoute);
-}, { immediate: true });
+});
 
 // 根據更換query值，重新發api
-watch(() => route.query, async () => {
-  updateSearchValue();
-  updateCurrentCategory();
+watch(() => route.query, async (queryObj) => {
+  searchValue.value = getSearchValueByCurrentQuery(queryObj) as string;
+  currentCategory.value = getCategoryByCurrentQuery(queryObj);
   postList.value = (await useApi().get<GetSinglePostRes[]>(`/posts${route.fullPath}`)).data;
 }, { immediate: true });
 </script>

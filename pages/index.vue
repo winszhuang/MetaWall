@@ -45,7 +45,7 @@ watch(() => route.query, async (queryObj) => {
   if (route.path === '/') {
     searchValue.value = getSearchValueByCurrentQuery(queryObj) as string;
     currentCategory.value = getCategoryByCurrentQuery(queryObj);
-    postList.value = (await useApi().get<GetSinglePostRes[]>(`/posts${route.fullPath}`)).data;
+    postList.value = (await getManyPost(`/posts${route.fullPath}`)).data;
   }
 }, { immediate: true });
 </script>

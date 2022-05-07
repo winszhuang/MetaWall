@@ -23,5 +23,10 @@ export default defineNuxtConfig({
       '@fortawesome/free-brands-svg-icons',
       '@fortawesome/vue-fontawesome'
     ]
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.APP_API_DOMAIN
+    }
   }
 })

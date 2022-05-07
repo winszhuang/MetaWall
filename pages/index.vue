@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { fakePostList } from '@/mock/const/post';
 
 const searchValue = ref('');
 
+const { data: postList } = await useApi().get<GetSinglePostRes[]>('/posts');
 </script>
 
 <template>
@@ -20,9 +20,15 @@ const searchValue = ref('');
   
     <!-- 貼文 -->
     <Post 
-      v-for="item in fakePostList"
-      :key="item.id"
-      :post="item"
+      v-for="post in postList"
+      :key="post._id"
+      :author="post.author.name"
+      :avator="post.author.avator"
+      :created-at="post.createdAt"
+      :content="post.content"
+      :image="post.image"
+      :likes="post.likes.length"
+      :id="post._id"
       class="mb-4"
     />
   </div>

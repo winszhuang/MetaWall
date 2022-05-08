@@ -9,10 +9,17 @@ const data = ref({
   imgUrl: ''
 });
 
-const handleAfterUpload: UploadHandler = (emitData) => {
+const handleAfterUpload: UploadHandler = async (emitData) => {
+  console.log(emitData);
   isFileFormatCorrect.value = emitData.info.success;
   currentErrorMessage.value = emitData.info.message;
-  data.value.imgUrl = emitData.url;
+
+  if(!emitData.file) return;
+
+  const result = (await postImage(emitData.file)).data;
+  if (result.imageUrl.includes('images/')) {
+    data.value.imgUrl = result.imageUrl.split('images/')[1];
+  }
 };
 
 const submitPost = async () => {

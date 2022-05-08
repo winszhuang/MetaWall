@@ -8,6 +8,12 @@ const props = defineProps<{
   likes: number,
   id: string
 }>();
+
+const correctImageUrl = computed(() => {
+  const baseApiUrl = useRuntimeConfig().public.apiBase;
+
+  return `${baseApiUrl}/images/${props.image}`
+});
 </script>
 
 <template>
@@ -35,7 +41,7 @@ const props = defineProps<{
       v-if="props.image" 
       class="mb-4 border-2 rounded"
     >
-      <img :src="props.image" alt="" class="rounded">
+      <img :src="correctImageUrl" alt="" class="rounded">
     </section>
 
     <!-- 按讚 -->

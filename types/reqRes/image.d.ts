@@ -1,0 +1,3 @@
+interface AddSingleImageRes {
+  imageUrl: string
+}

@@ -7,7 +7,8 @@ export interface EmitData {
     message: string,
     success: boolean
   },
-  url: string
+  url: string,
+  file: File
 };
 
 const props = withDefaults(defineProps<{
@@ -40,6 +41,7 @@ const getNewFile = (e: Event) => {
           if (trueOrErrorMessage !== true) {
             emits('update', {
               url: '',
+              file: null,
               info: { success: false, message: trueOrErrorMessage }
             });
             return;
@@ -49,6 +51,7 @@ const getNewFile = (e: Event) => {
         // 驗證全部通過就回傳正確的值
         emits('update', {
           url: imgUrl,
+          file,
           info: { success: true, message: '' }
         });
       }
@@ -69,12 +72,12 @@ const getNewFile = (e: Event) => {
       @change="getNewFile"
       hidden
       accept="image/*"
-      class=" mb-3 py-1 px-6 bg-black text-white"
+      class="px-6 py-1 mb-3 text-white bg-black "
       type="file" id="fileupload" name="fileupload" 
     />
     <label
       for="fileupload"
-      class="block mb-3 py-1 px-6 bg-black text-white cursor-pointer">
+      class="block px-6 py-1 mb-3 text-white bg-black cursor-pointer">
       {{ props.text }}
     </label>
   </div>

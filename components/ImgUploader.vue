@@ -33,8 +33,8 @@ const sizeLessThan1Mb: ValidateImgFunc = (imageData) => {
 const isJpgOrPng: ValidateImgFunc = (imageData) => {
   const { file } = imageData;
 
-  return file.type === '/image.jpeg'
-    || file.type === '/image/png'
+  return file.type === 'image/jpeg'
+    || file.type === 'image/png'
     ? true
     : errorMessgae.jpgAndPngAndGreaterThan1mb;
 }
@@ -44,13 +44,13 @@ const isJpgOrPng: ValidateImgFunc = (imageData) => {
 <template>
   <section>
     <Uploader
-      class="mb-4 w-32"
+      class="w-32 mb-4"
       @update="emitUpdate"
       :text="props.text"
       :validation-func-list="[sizeLessThan1Mb, isJpgOrPng]"/>
     <img
       ref="imgRef"
-      class="mx-auto border-2 rounded w-full"
+      class="w-full mx-auto border-2 rounded"
       :src="currentImageUrl || '../assets/image/image.png'" 
       alt="" 
       width="107px"

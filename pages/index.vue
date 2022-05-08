@@ -5,35 +5,36 @@ import { LocationQuery } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
-const postList = ref<GetSinglePostRes[]>();
-const currentCategory = ref(getCategoryByCurrentQuery(route.query));
 const searchValue = ref('');
+const currentCategory = ref(getCategoryByCurrentQuery(route.query));
+const postList = ref<GetSinglePostRes[]>();
 
 function getSearchValueByCurrentQuery(queryObj: LocationQuery) {
   return queryObj.q || '';
 }
 
 function getCategoryByCurrentQuery(queryObj: LocationQuery) {
-  if (queryObj.dateSort) {
-    return postCategory.find(category => category.queryString === `dateSort=${queryObj.dateSort}`);
-  }
-  
-  if (queryObj.likesSort) {
-    return postCategory.find(category => category.queryString === `likesSort=${queryObj.likesSort}`);
-  }
+  const defaultCategory = postCategory[0];
 
-  return postCategory[0];
+  return postCategory.find(category => 
+    Object.entries(queryObj).find(([queryKey, queryValue]) => 
+      queryKey === category.queryKey && queryValue === category.queryValue
+    )
+  ) || defaultCategory ;
 }
 
 function updateQueryWithSearch (value: string) {
-  const newRoute = `/?${currentCategory.value.queryString}` + 
+  const { queryKey, queryValue } = currentCategory.value;
+  const newRoute = `/?${queryKey}=${queryValue}` + 
     (value ? `&q=${value}` : '');
     
   router.push(newRoute);
 }
+
 // 根據切換切文種類，更換query值
 watch(currentCategory, (category) => {
-  const newRoute = `/?${category.queryString}` + 
+  const { queryKey, queryValue } = category;
+  const newRoute = `/?${queryKey}=${queryValue}` + 
     (route.query.q ? `&q=${route.query.q}` : '');
 
   router.push(newRoute);

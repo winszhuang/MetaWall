@@ -77,7 +77,7 @@ const getNewFile = (e: Event) => {
     />
     <label
       for="fileupload"
-      class="block px-6 py-1 mb-3 text-white bg-black cursor-pointer">
+      class="block px-6 py-1 mb-3 text-white bg-black border-2 cursor-pointer bg-slate-900 hover:bg-yellow hover:text-black hover:border-2">
       {{ props.text }}
     </label>
   </div>

@@ -10,7 +10,6 @@ const data = ref({
 });
 
 const handleAfterUpload: UploadHandler = async (emitData) => {
-  console.log(emitData);
   isFileFormatCorrect.value = emitData.info.success;
   currentErrorMessage.value = emitData.info.message;
 
@@ -64,14 +63,13 @@ const submitPost = async () => {
         class="mb-4 text-sm text-center text-negative"
       >{{ currentErrorMessage }}</pre>
 
-      <Btn
+      <button
         @click="submitPost"
-        class="mx-auto font-noto"
-        text="送出貼文"
-        bg-color-class="bg-yellow active:bg-primary"
-        text-color-class="text-black active:text-white"
-        width-class="sm:w-[323px] w-full"
-      />
+        :disabled="!data.content"
+        :class="data.content ? 'bg-primary text-white hover:bg-yellow hover:text-black' : 'bg-grey-500'"
+        class="w-full py-4 font-mono font-bold text-center border-2 border-black rounded">
+        送出貼文
+      </button>
     </section>
 
   </div>

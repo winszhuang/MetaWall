@@ -1,4 +1,19 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const numberList = (
+  function () {
+    const numberObj = {};
+
+    for (let i = 1; i <= 30; i += 0.5) {
+      if (i.toString().includes('.')) {
+        const [prev, last] = i.toString().split('.');
+        numberObj[`${prev}\\.${last}`] = `${i}px`;
+      } else {
+        numberObj[i] = `${i}px`;
+      }
+    }
+
+    return numberObj;
+  }()
+);
 
 module.exports = function () {
   return function ghost({ addUtilities }) {
@@ -23,7 +38,7 @@ module.exports = function () {
     };
 
     directions.forEach(direction => {
-      Object.entries(defaultTheme.spacing).forEach(([key, value]) => {
+      Object.entries(numberList).forEach(([key, value]) => {
         classListObj[`.ghost-${direction}-${key}`] = {
           position: 'relative',
           isolation: 'isolate',

@@ -20,7 +20,10 @@ const correctImageUrl = computed(() => {
   <article class="p-6 bg-white border-2 rounded">
     <!-- 個人資訊 -->
     <div class="flex items-center mb-4">
-      <img :src="props.avator" alt="" width="30px">
+      <img 
+        class="border-2 rounded-full"
+        :src="props.avator || '@/assets/image/default-avatar.jpg'" alt="" width="45" height="45
+      ">
       <div class="ml-4">
         <h6 class="mb-1 font-mono font-bold leading-5">
           {{ props.author }}

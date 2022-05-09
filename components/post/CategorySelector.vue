@@ -27,11 +27,11 @@ watch(selectedItem, (value) => {
 </script>
 
 <template>
-  <div class="border-2">
+  <div>
     <Listbox v-model="selectedItem">
-      <div class="relative mt-1">
+      <div class="h-full">
         <ListboxButton
-          class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative inline-block w-full h-full py-2 pl-4 text-left bg-white border-2 cursor-pointer focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span class="block truncate">{{ selectedItem.name }}</span>
         </ListboxButton>
@@ -42,7 +42,7 @@ watch(selectedItem, (value) => {
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white border-2 rounded-md shadow-lg focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm"
+            class="absolute w-full mt-[6px] overflow-auto text-base bg-white border-2 divide-y-2 focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm"
           >
             <ListboxOption
               v-slot="{ active, selected }"
@@ -52,12 +52,14 @@ watch(selectedItem, (value) => {
               as="template"
             >
               <li
+                class="cursor-pointer"
                 :class="[
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
+                  active ? 'bg-amber-100 text-amber-900 bg-grey-300' : 'text-gray-900',
+                  'relative select-none py-2 pl-4 pr-4 font-mono',
                 ]"
               >
                 <span
+                  class="font-mono text-black"
                   :class="[
                     selected ? 'font-medium' : 'font-normal',
                     'block truncate',

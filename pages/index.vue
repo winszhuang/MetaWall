@@ -53,13 +53,13 @@ watch(() => route.query, async (queryObj) => {
 
 <template>
   <div>
-    <div class="flex flex-row flex-wrap mb-4">
+    <div class="flex flex-row flex-wrap items-stretch mb-4">
       <PostCategorySelector
         :list="postCategory"
         v-model:value="currentCategory"
-        class="md:mb-0 mb-[6px] md:mr-3 md:w-[156px] w-full"/>
+        class="md:mb-0 mb-[6px] md:mr-3 md:w-[156px] w-full relative z-10"/>
       <PostSearch 
-        class="flex-1"
+        class="relative z-0 flex-1"
         :placeholder="'搜尋貼文'"
         v-model:value="searchValue"
         @handle="updateQueryWithSearch"

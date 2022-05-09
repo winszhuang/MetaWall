@@ -49,9 +49,18 @@ const isJpgOrPng: ValidateImgFunc = (imageData) => {
       :text="props.text"
       :validation-func-list="[sizeLessThan1Mb, isJpgOrPng]"/>
     <img
+      v-if="currentImageUrl"
       ref="imgRef"
       class="w-full mx-auto border-2 rounded after:content-[xjjj]"
-      :src="currentImageUrl || '../assets/image/default.jpg'" 
+      :src="currentImageUrl" 
+      alt="" 
+      width="107px"
+    >
+    <img
+      v-else
+      ref="imgRef"
+      class="w-full mx-auto border-2 rounded after:content-[xjjj]"
+      src="@/assets/image/defaultimage.png" 
       alt="" 
       width="107px"
     >

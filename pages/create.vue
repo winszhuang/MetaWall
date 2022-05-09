@@ -9,11 +9,29 @@ const data = ref({
   imgUrl: ''
 });
 
-const handleAfterUpload: UploadHandler = (emitData) => {
+const handleAfterUpload: UploadHandler = async (emitData) => {
   isFileFormatCorrect.value = emitData.info.success;
   currentErrorMessage.value = emitData.info.message;
-  data.value.imgUrl = emitData.url;
+
+  if(!emitData.file) return;
+
+  const result = (await postImage(emitData.file)).data;
+  if (result.imageUrl.includes('images/')) {
+    data.value.imgUrl = result.imageUrl.split('images/')[1];
+  }
 };
+
+const submitPost = async () => {
+  const { content, imgUrl } = data.value;
+  const result = await addPost({
+    content,
+    image: imgUrl
+  });
+
+  if (result.data) {
+    useRouter().push('/');
+  }
+}
 </script>
 
 <template>
@@ -25,7 +43,7 @@ const handleAfterUpload: UploadHandler = (emitData) => {
       </div>
     </h2>
   
-    <section class="border-2 rounded bg-white p-8 font-noto">
+    <section class="p-8 bg-white border-2 rounded font-noto">
       <Inputer
         v-model:value="data.content"
         title="貼文內容"
@@ -42,16 +60,16 @@ const handleAfterUpload: UploadHandler = (emitData) => {
 
       <pre
         v-if="!isFileFormatCorrect"
-        class="text-negative text-center text-sm mb-4"
+        class="mb-4 text-sm text-center text-negative"
       >{{ currentErrorMessage }}</pre>
 
-      <Btn
-        class="mx-auto font-noto"
-        text="送出貼文"
-        bg-color-class="bg-yellow active:bg-primary"
-        text-color-class="text-black active:text-white"
-        width-class="sm:w-[323px] w-full"
-      />
+      <button
+        @click="submitPost"
+        :disabled="!data.content"
+        :class="data.content ? 'bg-primary text-white hover:bg-yellow hover:text-black' : 'bg-grey-500'"
+        class="w-full py-4 font-mono font-bold text-center border-2 border-black rounded">
+        送出貼文
+      </button>
     </section>
 
   </div>

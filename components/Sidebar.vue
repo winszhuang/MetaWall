@@ -37,27 +37,15 @@ const sidebarList: Item[] = [
 </script>
 
 <template>
-  <div class=" border-2 bg-white px-6 py-8">
+  <div class="px-6 py-8 bg-white border-2 basis">
     <NuxtLink to="/create">
-      <button 
-        class="font-mono font-bold text-center leading-5
-          bg-primary text-white border-black
-            rounded border-2
-            py-4 mb-6
-            w-full">
-        張貼動態
+      <button
+        class="w-full mb-6 leading-5 text-white border-2 rounded after:border-2 after:bg-primary after:border-black ghost-bl-2 after:hover:bg-yellow after:hover:rounded-[10px] after:rounded-[10px]">
+        <span class="inline-block w-full py-4 font-mono font-bold text-center border-2 border-black rounded bg-primary hover:bg-yellow hover:text-black">
+          張貼動態
+        </span>
       </button>
     </NuxtLink>
-    <!-- <NuxtLink 
-      to="/create"
-      class="block font-mono font-bold text-center leading-5
-        bg-primary text-white border-black
-          rounded border-2
-          py-4 mb-6
-          w-full"
-    >
-      張貼動態
-    </NuxtLink> -->
 
     <template 
       v-for="(item, index) in sidebarList"
@@ -69,7 +57,7 @@ const sidebarList: Item[] = [
             width="50px"
             :src="(item as Item).icon" 
             alt=""
-            class=" inline-block mr-4">
+            class="inline-block mr-4 ">
           <h6 class="inline-block font-bold">
             {{ (item as Item).text }}
           </h6>

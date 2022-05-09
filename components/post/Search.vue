@@ -1,16 +1,21 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 
-const emits = defineEmits(['update:value']);
+const emits = defineEmits(['handle', 'update:value']);
 const props = defineProps<{
+  value: string, // v-model傳入
   placeholder: string
 }>();
 
-const data = ref('');
+const data = ref(props.value);
 
 watch(data, (value) => {
   emits('update:value', value);
-})
+});
+
+const onClick = () => {
+  emits('handle', data.value);
+}
 </script>
 
 <template>
@@ -21,7 +26,9 @@ watch(data, (value) => {
       type="text"
       v-model="data"
     />
-    <div class="flex justify-center items-center bg-primary text-white border-black border-2 border-l-0 w-[46px]">
+    <div
+      @click="onClick" 
+      class="flex justify-center items-center bg-primary text-white border-black border-2 border-l-0 w-[46px] cursor-pointer active:bg-yellow active:text-black">
       <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="w-5" />
     </div>
   </label>

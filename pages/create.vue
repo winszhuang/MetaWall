@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { UploadHandler } from '@/components/Uploader.vue';
+import { postImage } from '@/services/imageService';
+import { addPost } from '@/services/postService';
 
 const currentErrorMessage = ref('');
 const isFileFormatCorrect = ref(true);

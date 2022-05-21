@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
 import { postCategory } from '@/constants/postCategory';
 import { LocationQuery } from 'vue-router';
+import { getManyPost } from '@/services/postService';
 
 const route = useRoute();
 const router = useRouter();

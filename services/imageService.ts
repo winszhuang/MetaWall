@@ -1,3 +1,5 @@
+import useApi from './useApi';
+
 export const postImage = (file: File) => {
   const formData = new FormData();
   formData.append('image', file);

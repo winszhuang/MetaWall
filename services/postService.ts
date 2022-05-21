@@ -1,3 +1,5 @@
+import useApi from './useApi';
+
 export const getManyPost = (url: string) => {
   return useApi().get<GetSinglePostRes[]>(url);
 }

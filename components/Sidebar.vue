@@ -1,43 +1,5 @@
-<script lang="ts" setup>
-import userImg from '@/assets/image/user.png';
-import thumbupImg from '@/assets/image/thumbup.svg';
-import bell from '@/assets/image/bell.svg';
-
-export interface Item {
-  icon: any,
-  text: string,
-  key: string,
-  id: string,
-  route: string
-};
-
-const sidebarList: Item[] = [
-  {
-    icon: userImg,
-    text: '邊緣小杰',
-    key: 'user',
-    id: 'rjerilgj',
-    route: '/setting'
-  },
-  {
-    icon: bell,
-    text: '追蹤名單',
-    key: 'track',
-    id: '484rthth',
-    route: '/follow'
-  },
-  {
-    icon: thumbupImg,
-    text: '我按讚的文章',
-    key: 'like',
-    id: '994rgergh',
-    route: '/like'
-  }
-];
-</script>
-
 <template>
-  <div class="px-6 py-8 bg-white border-2 basis">
+  <div class="px-6 py-8 bg-white border-2 basis font-noto">
     <NuxtLink to="/create">
       <button
         class="w-full mb-6 leading-5 text-white border-2 rounded after:border-2 after:bg-primary after:border-black ghost-bl-2 after:hover:bg-yellow after:hover:rounded-[10px] after:rounded-[10px]">
@@ -47,22 +9,39 @@ const sidebarList: Item[] = [
       </button>
     </NuxtLink>
 
-    <template 
-      v-for="(item, index) in sidebarList"
-      :key="item.id"
-    >
-      <NuxtLink :to="item.route">
-        <div :class="{ 'mb-[22px]': index !== (sidebarList.length - 1) }">
-          <img
-            width="50px"
-            :src="(item as Item).icon" 
-            alt=""
-            class="inline-block mr-4 ">
-          <h6 class="inline-block font-bold">
-            {{ (item as Item).text }}
-          </h6>
-        </div>
-      </NuxtLink>
-    </template>
+    <NuxtLink to="/setting" class="mb-[22px] inline-block">
+      <img
+        width="50px"
+        src="@/assets/image/user.png"
+        alt=""
+        class="inline-block mr-4">
+      <h6 class="inline-block font-bold hover:text-primary">
+        邊緣小杰
+      </h6>
+    </NuxtLink>
+
+    <NuxtLink to="/follow" class="mb-[22px] inline-block">
+      <span class="inline-block leading-[46px] w-[50px] mr-4 rounded-full border-2  text-center bg-light hover:bg-primary hover:text-white hover:border-black">
+        <font-awesome-icon
+          :icon="['far', 'bell']"
+          class="inline-block w-5" 
+        />
+      </span>
+      <h6 class="inline-block font-bold hover:text-primary">
+        追蹤名單
+      </h6>
+    </NuxtLink>
+
+    <NuxtLink to="/follow" class="inline-block">
+      <span class="inline-block leading-[46px] w-[50px] mr-4 rounded-full bg-light border-2  text-center hover:bg-primary hover:text-white hover:border-black">
+        <font-awesome-icon
+          :icon="['far', 'thumbs-up']"
+          class="inline-block w-5" 
+        />
+      </span>
+      <h6 class="inline-block font-bold hover:text-primary">
+        追蹤名單
+      </h6>
+    </NuxtLink>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-const router = useRouter();
+const router = useRouter()
 
 const login = () => {
-  console.log('login');
+  useLocalStorage().clearToken()
   router.push('/login')
 }
 </script>
@@ -16,16 +16,20 @@ const login = () => {
         </h1>
       </NuxtLink>
       <div class="relative flex items-center py-3 ml-auto group">
-        <img src="../assets/image/user.png" alt="" width="30px">
+        <img
+          src="../assets/image/user.png"
+          alt=""
+          width="30px"
+        >
         <div class="ml-2">
           <div class="mb-1 font-mono font-bold leading-5">
             Member
           </div>
-          <div class="border-b-2 "/>
+          <div class="border-b-2 " />
         </div>
 
         <!-- menu -->
-        <section 
+        <section
           class="absolute hidden md:group-hover:block
             top-[90%] lg:-right-[50%] md:right-2 isolate z-10
             before:z-[-1] before:absolute before:border-2 before:bg-white before:left-1 before:top-1 before:w-full before:h-full"
@@ -38,10 +42,10 @@ const login = () => {
             </li>
             <li class="py-2 hover:bg-grey-300">
               <NuxtLink to="/setting">
-              修改個人資料
+                修改個人資料
               </NuxtLink>
             </li>
-            <li 
+            <li
               class="py-2 hover:bg-grey-300"
               @click="login"
             >

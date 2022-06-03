@@ -1,28 +1,28 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { errorMessgae } from '@/constants/errorMessage';
+import { ref } from 'vue'
+import { errorMessgae } from '@/constants/errorMessage'
 
-const showError = ref(false);
+const showError = ref(false)
 const data = ref({
   name: '',
   email: '',
   password: ''
-});
+})
 
-const hasError = () => !data.value.email || !data.value.password || !data.value.name;
+const hasError = () => !data.value.email || !data.value.password || !data.value.name
 const submit = () => {
-  if(hasError()) {
-    showError.value = true;
-    return;
+  if (hasError()) {
+    showError.value = true
+    return
   }
 
-  showError.value = false;
-  console.log('post api!!');
-};
+  showError.value = false
+  console.log('post api!!')
+}
 
 definePageMeta({
-  layout: "entrance",
-});
+  layout: 'entrance'
+})
 </script>
 
 <template>
@@ -30,7 +30,7 @@ definePageMeta({
     <h1 class="font-paytone text-primary text-6xl leading-[1.4]">
       MetaWall
     </h1>
-    <h2 class=" font-helvetica font-bold text-2xl mb-8">
+    <h2 class="mb-8 text-2xl font-bold  font-helvetica">
       註冊
     </h2>
 
@@ -38,22 +38,25 @@ definePageMeta({
       v-model:value="data.name"
       class="mb-4"
       placeholder="暱稱"
-      type="password"/>
+      type="password"
+    />
     <Inputer
       v-model:value="data.email"
       class="mb-4"
       placeholder="Email"
-      type="email"/>
+      type="email"
+    />
     <Inputer
       v-model:value="data.password"
       class="mb-8"
       placeholder="Password"
-      type="password"/>
+      type="password"
+    />
 
     <!-- 錯誤信息 -->
     <pre
-        v-if="showError"
-        class="text-negative text-center text-sm mb-4 font-noto"
+      v-if="showError"
+      class="mb-4 text-sm text-center text-negative font-noto"
     >{{ errorMessgae.emailOrPasswordError }}</pre>
 
     <Btn
@@ -61,7 +64,7 @@ definePageMeta({
       text="註冊"
       @click="submit"
     />
-    <NuxtLink 
+    <NuxtLink
       to="/login"
       class="font-mono text-base"
     >

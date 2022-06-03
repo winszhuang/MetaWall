@@ -4,14 +4,16 @@ const props = withDefaults(defineProps<{
   bgColorClass?: string,
   textColorClass?: string,
   widthClass?: string,
-  disabled?: boolean
+  disabled?: boolean,
+  type?: 'submit' | 'button' | 'reset'
 }>(), {
   text: '提交',
   bgColorClass: 'bg-primary',
   textColorClass: 'text-white',
   widthClass: 'w-full',
-  disabled: false
-});
+  disabled: false,
+  type: 'button'
+})
 </script>
 
 <template>
@@ -20,10 +22,12 @@ const props = withDefaults(defineProps<{
     class="relative text-center isolate font-mono font-bold text-base block
       after:absolute after:w-full after:h-full after:-left-0.5 after:top-0.5 after:border-[3px] after:z-[-1] after:rounded"
     :class="`after:${props.bgColorClass} after:${props.textColorClass} ${props.widthClass}`"
+    :type="props.type"
   >
     <h6
       class="py-[18px] border-2 rounded border-black"
-      :class="`${props.bgColorClass} ${props.textColorClass} ${props.widthClass}`">
+      :class="`${props.bgColorClass} ${props.textColorClass} ${props.widthClass}`"
+    >
       {{ props.text }}
     </h6>
   </button>

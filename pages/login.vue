@@ -1,61 +1,74 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { errorMessgae } from '@/constants/errorMessage';
+import { ResponseStatusEnum } from '@/enum/responseStatusEnum'
+import { RoutePathEnum } from '@/enum/routePathEnum'
+import { signIn } from '@/services/authService'
+import { Form } from 'vee-validate'
+import { object, string } from 'yup'
 
-const showError = ref(false);
-const data = ref({
-  email: '',
-  password: ''
-});
+const router = useRouter()
 
-const hasError = () => !data.value.email || !data.value.password;
-const submit = () => {
-  if(hasError()) {
-    showError.value = true;
-    return;
+const schema = object().shape({
+  email: string().required().email('email格式錯誤'),
+  password: string().matches(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/, '密碼必須英數混合')
+})
+
+const onSubmit = async (values: any) => {
+  const result = await signIn({
+    email: (values as SignInReq).email,
+    password: (values as SignInReq).password
+  })
+
+  if (result.status === ResponseStatusEnum.Success) {
+    const token = result.data.token
+    useLocalStorage().setToken(token)
+    // setCookie(result, 'token', token)
+    // setToken(token)
+    router.push(RoutePathEnum.Home)
+  } else {
+    console.log('登入有問題')
   }
-
-  showError.value = false;
-  console.log('post api!!');
-};
+}
 
 definePageMeta({
-  layout: "entrance",
-});
+  layout: 'entrance'
+})
 </script>
 
 <template>
-  <div class="px-4 md:pr-12 md:pl-0 text-center -translate-y-1/2 mt-[50vh]">
-    <h1 class="font-paytone text-primary text-6xl leading-[1.4]">
+  <div class="w-full px-4 text-center md:pr-12 md:pl-0">
+    <h1 class="font-paytone text-primary text-5xl md:text-6xl !leading-[1.4]">
       MetaWall
     </h1>
-    <h2 class=" font-helvetica font-bold text-2xl mb-8">
+    <h2 class="mb-8 text-xl font-bold md:text-2xl font-helvetica">
       到元宇宙展開全新社交圈
     </h2>
-
-    <Inputer
-      v-model:value="data.email"
-      class="mb-4"
-      placeholder="Email"
-      type="email"/>
-    <Inputer
-      v-model:value="data.password"
-      class="mb-8"
-      placeholder="Password"
-      type="password"/>
-
-    <!-- 錯誤信息 -->
-    <pre
-        v-if="showError"
-        class="text-negative text-center text-sm mb-4 font-noto"
-    >{{ errorMessgae.emailOrPasswordError }}</pre>
-
-    <Btn
-      class="mb-4"
-      text="登入"
-      @click="submit"
-    />
-    <NuxtLink 
+    <Form
+      v-slot="{ meta }"
+      :validation-schema="schema"
+      @submit="onSubmit"
+    >
+      <FormInput
+        name="email"
+        type="email"
+        label="E-mail"
+        placeholder="Email"
+      />
+      <FormInput
+        name="password"
+        type="password"
+        label="Password"
+        placeholder="Password"
+      />
+      <Btn
+        :bg-color-class="meta.valid ? 'bg-primary hover:bg-yellow' : 'bg-grey-500'"
+        :text-color-class="meta.valid ? 'text-white hover:text-black': 'text-white'"
+        :disabled="!meta.valid"
+        class="mb-4"
+        text="登入"
+        type="submit"
+      />
+    </Form>
+    <NuxtLink
       to="/register"
       class="font-mono text-base"
     >

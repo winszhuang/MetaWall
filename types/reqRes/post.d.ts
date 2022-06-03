@@ -1,16 +1,20 @@
+interface PostData {
+  content: string,
+  image?: string
+}
+
 interface GetSinglePostRes {
   _id: string,
   content: string,
   image?: string,
   likes: string[],
-  author: getUserRes,
+  user: getUserRes,
   createdAt: string
 }
 
-interface AddSinglePostReq {
-  content: string,
-  image?: string
-}
+interface AddSinglePostReq extends PostData {}
 
-type AddSinglePostRes = boolean;
+type AddSinglePostRes = any
+
+interface EditPostReq extends PostData {}
 

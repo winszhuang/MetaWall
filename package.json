@@ -28,6 +28,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@headlessui/vue": "^1.6.0",
-    "@mdi/font": "^6.6.96"
+    "@mdi/font": "^6.6.96",
+    "@vueuse/core": "^8.6.0",
+    "vee-validate": "^4.5.11",
+    "yup": "^0.32.11"
   }
 }

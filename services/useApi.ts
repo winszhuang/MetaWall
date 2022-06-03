@@ -1,6 +1,7 @@
-import { $fetch, FetchContext, FetchOptions, FetchResponse } from 'ohmyfetch';
-import { ApiResponse } from '@/types/api';
-import { HttpMethodType, httpMethodList } from '@/enum/http-method';
+import { $fetch, FetchContext, FetchOptions, FetchResponse } from 'ohmyfetch'
+import { ApiResponse } from '@/types/api'
+import { HttpMethodType, httpMethodList } from '@/enum/http-method'
+// import { getToken } from '@/utils/localstorage'
 
 type FetchMethod = <T>(url: string, body?: BodyInit | Record<string, any>) => Promise<ApiResponse<T>>;
 type Fetcher = Record<HttpMethodType, FetchMethod>;
@@ -11,7 +12,7 @@ export default () => {
     onRequest: requestHandler,
     onResponse: responseHandler,
     parseResponse: JSON.parse
-  });
+  })
 
   const fetcher = {} as Fetcher
 
@@ -22,13 +23,20 @@ export default () => {
   return fetcher
 }
 
-
-async function requestHandler(ctx: FetchContext): Promise<void> {
-  console.log('之後處理token問題');
+async function requestHandler (ctx: FetchContext): Promise<void> {
+  const token = useLocalStorage().getToken()
+  if (token) {
+    ctx.options.headers = {
+      Authorization: `Bearer ${token}`
+    }
+  }
 }
 
-async function responseHandler<R>(ctx: FetchContext & {
+async function responseHandler<R> (ctx: FetchContext & {
   response: FetchResponse<R>;
 }): Promise<void> {
-  console.log('之後處理error問題');
+  if (!ctx.response.ok) {
+    const errorMessage = ctx.response._data.message
+    console.error(errorMessage)
+  }
 }

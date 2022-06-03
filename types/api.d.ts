@@ -1,10 +1,9 @@
-import { HttpCodeEnum } from '@/enum/http';
+import { ResponseStatusEnum } from '@/enum/responseStatusEnum'
 
 export interface ApiResponse<
   D extends Record<string, any> | boolean | string | Array<any>,
 > {
   data: D;
-  code?: HttpCodeEnum;
-  message?: string;
-  status: string
+  message?: string
+  status: ResponseStatusEnum
 }

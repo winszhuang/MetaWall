@@ -1,6 +1,6 @@
 import useApi from './useApi'
 
-export const signUp = (body: BodyInit | Record<string, any>) => {
+export const signUp = (body: SignUpReq) => {
   return useApi().post('/auth/signup', body)
 }
 

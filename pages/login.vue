@@ -21,8 +21,6 @@ const onSubmit = async (values: any) => {
   if (result.status === ResponseStatusEnum.Success) {
     const token = result.data.token
     useLocalStorage().setToken(token)
-    // setCookie(result, 'token', token)
-    // setToken(token)
     router.push(RoutePathEnum.Home)
   } else {
     console.log('登入有問題')
@@ -50,13 +48,11 @@ definePageMeta({
       <FormInput
         name="email"
         type="email"
-        label="E-mail"
         placeholder="Email"
       />
       <FormInput
         name="password"
         type="password"
-        label="Password"
         placeholder="Password"
       />
       <Btn

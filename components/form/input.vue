@@ -6,7 +6,6 @@ const props = withDefaults(defineProps<{
   type: string,
   value?: string,
   name: string,
-  label: string,
   placeholder: string,
 }>(), {
   type: 'text',

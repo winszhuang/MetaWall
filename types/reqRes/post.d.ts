@@ -1,10 +1,5 @@
 import { getSingleUserRes } from './user'
 
-interface PostData {
-  content: string,
-  image?: string
-}
-
 interface GetSinglePostRes {
   content: string,
   updatedAt: string,
@@ -13,6 +8,7 @@ interface GetSinglePostRes {
   likes: getSingleUserRes[],
   user: getSingleUserRes,
   _id: string,
+  comments: GetSinglePostRes[]
 }
 
 interface AddSinglePostReq extends PostData {}

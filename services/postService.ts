@@ -24,3 +24,15 @@ export const unLike = (postId: string) => {
 export const getLikePost = () => {
   return useApi().get<GetSinglePostRes[]>('/posts/like')
 }
+
+export const addComment = (postId: string, body: AddSinglePostReq) => {
+  return useApi().post<GetSinglePostRes>(`/posts/${postId}/comment`, body)
+}
+
+export const editComment = (commentId: string, body: AddSinglePostReq) => {
+  return useApi().patch(`/posts/comment/${commentId}`, body)
+}
+
+export const deleteComment = (commentId: string) => {
+  return useApi().delete(`/posts/comment/${commentId}`)
+}

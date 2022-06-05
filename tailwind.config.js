@@ -1,13 +1,13 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-const ghost = require('./plugins/tailwind-custom/ghost');
+const defaultTheme = require('tailwindcss/defaultTheme')
+const ghost = require('./plugins/tailwind-custom/ghost')
 
 module.exports = {
   content: [
-    "./components/**/*.{vue,js}",
-    "./layouts/**/*.vue",
-    "./pages/**/*.vue",
-    "./plugins/**/*.{js,ts}",
-    "./app.vue"
+    './components/**/*.{vue,js}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    './app.vue'
   ],
   theme: {
     screens: {
@@ -24,7 +24,8 @@ module.exports = {
         300: '#EFECE7',
         400: '#9B9893',
         500: '#A8B0B9',
-        600: '#808080'
+        600: '#808080',
+        700: '#FAF9F8'
       },
       light: '#E2EDFA',
       negative: '#F57375',
@@ -46,10 +47,10 @@ module.exports = {
     extend: {
       borderRadius: {
         DEFAULT: '0.5rem'
-      },
-    },
+      }
+    }
   },
   plugins: [
     ghost()
-  ],
+  ]
 }

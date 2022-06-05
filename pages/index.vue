@@ -82,7 +82,8 @@ watch(() => route.query, async (queryObj) => {
         :content="post.content"
         :image="post.image || ''"
         :likes="post.likes"
-        class="mb-4"
+        :comments="post.comments"
+        class="mb-4 bg-white border-2 rounded"
       />
     </template>
     <PostEmpty v-else />

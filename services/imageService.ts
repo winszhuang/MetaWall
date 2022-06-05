@@ -1,8 +1,8 @@
-import useApi from './useApi';
+import useApi from './useApi'
 
 export const postImage = (file: File) => {
-  const formData = new FormData();
-  formData.append('image', file);
+  const formData = new FormData()
+  formData.append('image', file)
 
-  return useApi().post<AddSingleImageRes>('/images', formData);
+  return useApi().post<AddSingleImageRes>('/images', formData)
 }

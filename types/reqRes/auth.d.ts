@@ -1,8 +1,3 @@
-interface PostData {
-  content: string,
-  image?: string
-}
-
 interface SignInReq {
   email: string,
   password: string

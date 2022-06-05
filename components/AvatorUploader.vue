@@ -2,15 +2,15 @@
 import { errorMessgae } from '@/constants/errorMessage'
 import { UploadHandler, EmitData } from './Uploader.vue'
 import { ValidateImgFunc } from '@/types/validate'
+import { correctImageUrl } from '@/helpers/correctImageUrl'
 
 const props = withDefaults(defineProps<{
+  imageUrl?: string,
   text?: string,
 }>(), {
   text: '上傳'
 })
-const emits = defineEmits<{
-  (e: 'update', data: EmitData): void
-}>()
+const emits = defineEmits<{(e: 'update', data: EmitData): void}>()
 
 const currentImageUrl = ref('')
 const imgRef = ref<HTMLImageElement>()
@@ -37,16 +37,31 @@ const widthGreaterThan300px: ValidateImgFunc = (imageData) => {
   return width >= 300 ? true : errorMessgae.ratio11AndGreaterThan300
 }
 
+watch(() => props.imageUrl, (url) => {
+  currentImageUrl.value = url
+}, { immediate: true })
+
 </script>
 
 <template>
   <section class="text-center">
     <img
+      v-if="currentImageUrl"
       ref="imgRef"
       class="mx-auto border-2 rounded-[100px] mb-4"
-      :src="currentImageUrl || '../assets/image/user_default.png'"
+      :src="currentImageUrl"
       alt=""
-      width="107px"
+      width="107"
+      height="107"
+    >
+    <img
+      v-else
+      ref="imgRef"
+      class="mx-auto border-2 rounded-[100px] mb-4"
+      src="../assets/image/user.png"
+      alt=""
+      width="107"
+      height="107"
     >
     <Uploader
       :text="props.text"

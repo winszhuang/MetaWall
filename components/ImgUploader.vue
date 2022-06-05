@@ -1,42 +1,40 @@
 <script lang="ts" setup>
-import { errorMessgae } from '@/constants/errorMessage';
-import { UploadHandler, EmitData } from './Uploader.vue';
-import { ValidateImgFunc } from '@/types/validate';
+import { errorMessgae } from '@/constants/errorMessage'
+import { UploadHandler, EmitData } from './Uploader.vue'
+import { ValidateImgFunc } from '@/types/validate'
 
 const props = withDefaults(defineProps<{
   text?: string,
 }>(), {
-  text: '上傳',
-});
-const emits = defineEmits<{
-  (e: 'update', data: EmitData): void
-}>()
+  text: '上傳'
+})
+const emits = defineEmits<{(e: 'update', data: EmitData): void}>()
 
-const currentImageUrl = ref('');
-const imgRef = ref<HTMLImageElement>();
+const currentImageUrl = ref('')
+const imgRef = ref<HTMLImageElement>()
 
 const emitUpdate: UploadHandler = (data) => {
-  currentImageUrl.value = data.url;
-  emits('update', data);
-};
+  currentImageUrl.value = data.url
+  emits('update', data)
+}
 
 /** 驗證圖片大小是否1MB以內 */
 const sizeLessThan1Mb: ValidateImgFunc = (imageData) => {
-  const { file } = imageData;
+  const { file } = imageData
   // 單位KB
-  const size = file.size / 1024;
+  const size = file.size / 1024
 
-  return size < 1024 ? true : errorMessgae.jpgAndPngAndGreaterThan1mb;
+  return size < 1024 ? true : errorMessgae.jpgAndPngAndGreaterThan1mb
 }
 
 /** 驗證圖片是否是JPG和PNG */
 const isJpgOrPng: ValidateImgFunc = (imageData) => {
-  const { file } = imageData;
+  const { file } = imageData
 
-  return file.type === 'image/jpeg'
-    || file.type === 'image/png'
+  return file.type === 'image/jpeg' ||
+    file.type === 'image/png'
     ? true
-    : errorMessgae.jpgAndPngAndGreaterThan1mb;
+    : errorMessgae.jpgAndPngAndGreaterThan1mb
 }
 
 </script>
@@ -45,24 +43,25 @@ const isJpgOrPng: ValidateImgFunc = (imageData) => {
   <section>
     <Uploader
       class="w-32 mb-4"
-      @update="emitUpdate"
       :text="props.text"
-      :validation-func-list="[sizeLessThan1Mb, isJpgOrPng]"/>
+      :validation-func-list="[sizeLessThan1Mb, isJpgOrPng]"
+      @update="emitUpdate"
+    />
     <img
       v-if="currentImageUrl"
       ref="imgRef"
       class="w-full mx-auto border-2 rounded after:content-[xjjj]"
-      :src="currentImageUrl" 
-      alt="" 
-      width="107px"
+      :src="currentImageUrl"
+      alt=""
+      width="107"
     >
     <img
       v-else
       ref="imgRef"
       class="w-full mx-auto border-2 rounded after:content-[xjjj]"
-      src="@/assets/image/defaultimage.png" 
-      alt="" 
-      width="107px"
+      src="@/assets/image/defaultimage.png"
+      alt=""
+      width="107"
     >
   </section>
 </template>

@@ -4,17 +4,17 @@ interface PostData {
 }
 
 interface GetSinglePostRes {
-  _id: string,
   content: string,
+  updatedAt: string,
+  createdAt: string
   image?: string,
   likes: string[],
-  user: getUserRes,
-  createdAt: string
+  user: getSingleUserRes,
+  _id: string,
 }
 
 interface AddSinglePostReq extends PostData {}
 
 type AddSinglePostRes = any
 
-interface EditPostReq extends PostData {}
-
+interface EditPostReq extends Partial<PostData> {}

@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 
 const emits = defineEmits(['update:value'])
 const props = withDefaults(defineProps<{
+  value?: string,
   title?: string,
   placeholder: string,
   type?: string,
@@ -13,6 +14,12 @@ const props = withDefaults(defineProps<{
 })
 
 const data = ref('')
+
+watch(() => props.value, (value) => {
+  if (value) {
+    data.value = value
+  }
+}, { immediate: true })
 
 watch(data, (value) => {
   emits('update:value', value)

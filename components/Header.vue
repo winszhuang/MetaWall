@@ -1,5 +1,9 @@
 <script lang="ts" setup>
+import { injectKeyForUserProfile } from '@/constants/injectionKey'
+import { correctImageUrl } from '@/helpers/correctImageUrl'
+
 const router = useRouter()
+const userProfile = inject(injectKeyForUserProfile)
 
 const login = () => {
   useLocalStorage().clearToken()
@@ -17,13 +21,20 @@ const login = () => {
       </NuxtLink>
       <div class="relative flex items-center py-3 ml-auto group">
         <img
+          v-if="userProfile.avatar"
+          :src="correctImageUrl(userProfile.avatar)"
+          alt=""
+          width="30"
+        >
+        <img
+          v-else
           src="../assets/image/user.png"
           alt=""
-          width="30px"
+          width="30"
         >
         <div class="ml-2">
           <div class="mb-1 font-mono font-bold leading-5">
-            Member
+            {{ userProfile.name }}
           </div>
           <div class="border-b-2 " />
         </div>

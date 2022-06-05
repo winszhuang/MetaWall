@@ -68,13 +68,14 @@ watch(() => route.query, async (queryObj) => {
     </div>
 
     <template v-if="postList?.length > 0">
+      {{ postList }}
       <!-- 貼文 -->
       <Post
         v-for="post in postList"
         :id="post._id"
         :key="post._id"
         :author="post.user.name"
-        :avator="post.user.photo"
+        :avatar="post.user.avatar"
         :created-at="post.createdAt"
         :content="post.content"
         :image="post.image"

@@ -1,7 +1,6 @@
-import { $fetch, FetchContext, FetchOptions, FetchResponse } from 'ohmyfetch'
+import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
 import { ApiResponse } from '@/types/api'
-import { HttpMethodType, httpMethodList } from '@/enum/http-method'
-// import { getToken } from '@/utils/localstorage'
+import { HttpMethodType, HttpMethodEnum, httpMethodList } from '@/enum/http-method'
 
 type FetchMethod = <T>(url: string, body?: BodyInit | Record<string, any>) => Promise<ApiResponse<T>>;
 type Fetcher = Record<HttpMethodType, FetchMethod>;
@@ -17,7 +16,7 @@ export default () => {
   const fetcher = {} as Fetcher
 
   httpMethodList.forEach(method => {
-    fetcher[method] = <T>(url: string, body?: BodyInit | Record<string, any>) => apiInstance<ApiResponse<T>>(url, { body, method })
+    fetcher[method] = <T>(url: string, body?: BodyInit | Record<string, any>) => apiInstance<ApiResponse<T>>(url, { body, method: HttpMethodEnum[method] })
   })
 
   return fetcher

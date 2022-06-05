@@ -1,3 +1,5 @@
+import { getSingleUserRes } from './user'
+
 interface PostData {
   content: string,
   image?: string
@@ -8,7 +10,7 @@ interface GetSinglePostRes {
   updatedAt: string,
   createdAt: string
   image?: string,
-  likes: string[],
+  likes: getSingleUserRes[],
   user: getSingleUserRes,
   _id: string,
 }

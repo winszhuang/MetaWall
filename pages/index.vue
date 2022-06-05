@@ -2,6 +2,7 @@
 import { postCategory } from '@/constants/postCategory'
 import { LocationQuery } from 'vue-router'
 import { getManyPost } from '@/services/postService'
+import { GetSinglePostRes } from '@/types/reqRes/post'
 
 const route = useRoute()
 const router = useRouter()
@@ -68,18 +69,19 @@ watch(() => route.query, async (queryObj) => {
     </div>
 
     <template v-if="postList?.length > 0">
-      {{ postList }}
       <!-- 貼文 -->
       <Post
         v-for="post in postList"
         :id="post._id"
         :key="post._id"
-        :author="post.user.name"
-        :avatar="post.user.avatar"
+        :user-id="post.user._id"
+        :user-name="post.user.name"
+        :user-avatar="post.user.avatar || ''"
         :created-at="post.createdAt"
+        :updated-at="post.updatedAt"
         :content="post.content"
-        :image="post.image"
-        :likes="post.likes.length"
+        :image="post.image || ''"
+        :likes="post.likes"
         class="mb-4"
       />
     </template>

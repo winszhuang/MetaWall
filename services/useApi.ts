@@ -1,6 +1,7 @@
 import { $fetch, FetchContext, FetchResponse } from 'ohmyfetch'
 import { ApiResponse } from '@/types/api'
 import { HttpMethodType, HttpMethodEnum, httpMethodList } from '@/enum/http-method'
+import { RoutePathEnum } from '@/enum/routePathEnum'
 
 type FetchMethod = <T>(url: string, body?: BodyInit | Record<string, any>) => Promise<ApiResponse<T>>;
 type Fetcher = Record<HttpMethodType, FetchMethod>;
@@ -37,5 +38,11 @@ async function responseHandler<R> (ctx: FetchContext & {
   if (!ctx.response.ok) {
     const errorMessage = ctx.response._data.message
     console.error(errorMessage)
+
+    // token過期的情況
+    if (ctx.response.status === 403) {
+      useLocalStorage().clearToken()
+      navigateTo(RoutePathEnum.Login)
+    }
   }
 }

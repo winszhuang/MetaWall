@@ -29,7 +29,10 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "@headlessui/vue": "^1.6.0",
     "@mdi/font": "^6.6.96",
+    "@nuxtjs/dayjs": "^1.4.1",
+    "@pinia/nuxt": "^0.1.9",
     "@vueuse/core": "^8.6.0",
+    "pinia": "^2.0.14",
     "vee-validate": "^4.5.11",
     "yup": "^0.32.11"
   }

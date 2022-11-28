@@ -5,6 +5,10 @@ export const getManyPost = (url: string) => {
   return useApi().get<GetSinglePostRes[]>(url)
 }
 
+export const getUserPosts = (userId: string) => {
+  return useApi().get<GetSinglePostRes[]>(`/posts/user/${userId}`)
+}
+
 export const addPost = (body: AddSinglePostReq) => {
   return useApi().post<AddSinglePostRes>('/posts', body)
 }

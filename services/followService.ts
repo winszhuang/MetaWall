@@ -1,5 +1,5 @@
-import { getSingleUserRes } from '@/types/reqRes/user'
 import useApi from './useApi'
+import { getOneFollowingUserRes } from '@/types/reqRes/follow'
 
 export const follow = (userId: string) => {
   return useApi().patch<boolean>(`/users/${userId}/follow`)
@@ -10,9 +10,9 @@ export const unFollow = (userId: string) => {
 }
 
 export const getFollowing = () => {
-  return useApi().get<getSingleUserRes[]>('/users/following')
+  return useApi().get<getOneFollowingUserRes[]>('/users/following')
 }
 
 export const getFollowers = () => {
-  return useApi().get<getSingleUserRes[]>('/users/followers')
+  return useApi().get<getOneFollowingUserRes[]>('/users/followers')
 }

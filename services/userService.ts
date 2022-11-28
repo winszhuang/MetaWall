@@ -9,6 +9,10 @@ export const getUserProfile = () => {
   return useApi().get<getUserProfileRes>('/users/profile')
 }
 
+export const getSpecificUserProfile = (userId: string) => {
+  return useApi().get<getUserProfileRes>(`/users/${userId}/profile`)
+}
+
 export const updateUserProfile = (body: updateUserProfileReq) => {
   return useApi().patch('/users/profile', body)
 }

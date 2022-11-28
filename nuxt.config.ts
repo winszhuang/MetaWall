@@ -6,17 +6,17 @@ export default defineNuxtConfig({
     shim: false
   },
   css: [
-    "~/assets/css/tailwind.css",
-    "@mdi/font/css/materialdesignicons.min.css"
+    '~/assets/css/tailwind.css',
+    '@mdi/font/css/materialdesignicons.min.css'
   ],
   build: {
     postcss: {
       postcssOptions: {
         plugins: {
           tailwindcss: {},
-          autoprefixer: {},
-        },
-      },
+          autoprefixer: {}
+        }
+      }
     },
     transpile: [
       '@fortawesome/fontawesome-svg-core',
@@ -24,6 +24,10 @@ export default defineNuxtConfig({
       '@fortawesome/vue-fontawesome'
     ]
   },
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/dayjs'
+  ],
   runtimeConfig: {
     public: {
       apiBase: process.env.APP_API_DOMAIN

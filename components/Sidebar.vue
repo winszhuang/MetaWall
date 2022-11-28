@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import { defaultUserProfile } from '@/constants/default'
-import { injectKeyForUserProfile } from '@/constants/injectionKey'
 import { correctImageUrl } from '@/helpers/correctImageUrl'
+import { useUserStore } from '@/store/userStore'
+import { storeToRefs } from 'pinia'
 
-const userProfile = ref(defaultUserProfile)
+const userStore = useUserStore()
 
-watch(inject(injectKeyForUserProfile), (value) => {
-  userProfile.value = { ...value }
-})
+const { profile } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -27,8 +25,8 @@ watch(inject(injectKeyForUserProfile), (value) => {
       class="mb-[22px] inline-block"
     >
       <img
-        v-if="userProfile.avatar"
-        :src="correctImageUrl(userProfile.avatar)"
+        v-if="profile?.avatar"
+        :src="correctImageUrl(profile.avatar)"
         class="inline-block mr-4"
         width="50"
         height="50"
@@ -44,7 +42,7 @@ watch(inject(injectKeyForUserProfile), (value) => {
       >
 
       <h6 class="inline-block font-bold hover:text-primary">
-        {{ userProfile.name }}
+        {{ profile?.name || '使用者' }}
       </h6>
     </NuxtLink>
 

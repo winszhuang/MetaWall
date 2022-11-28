@@ -4,7 +4,6 @@ const props = withDefaults(defineProps<{
   bgColorClass?: string,
   textColorClass?: string,
   widthClass?: string,
-  paddingClass?: string,
   disabled?: boolean,
   type?: 'submit' | 'button' | 'reset'
 }>(), {
@@ -12,7 +11,6 @@ const props = withDefaults(defineProps<{
   bgColorClass: 'bg-primary',
   textColorClass: 'text-white',
   widthClass: 'w-full',
-  paddingClass: 'py-[18px]',
   disabled: false,
   type: 'button'
 })
@@ -23,12 +21,12 @@ const props = withDefaults(defineProps<{
     :disabled="props.disabled"
     class="relative text-center isolate font-mono font-bold text-base block
       after:absolute after:w-full after:h-full after:-left-0.5 after:top-0.5 after:border-[3px] after:z-[-1] after:rounded"
-    :class="`after:${props.bgColorClass} after:${props.textColorClass} ${props.widthClass} after:${props.paddingClass}`"
+    :class="`after:${props.bgColorClass} after:${props.textColorClass} ${props.widthClass}`"
     :type="props.type"
   >
     <h6
-      class="border-2 border-black rounded"
-      :class="`${props.bgColorClass} ${props.textColorClass} ${props.widthClass} ${props.paddingClass}`"
+      class="py-[18px] border-2 rounded border-black"
+      :class="`${props.bgColorClass} ${props.textColorClass} ${props.widthClass}`"
     >
       {{ props.text }}
     </h6>

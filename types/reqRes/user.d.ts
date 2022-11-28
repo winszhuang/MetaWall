@@ -6,13 +6,19 @@ interface getSingleUserRes {
   avatar: string
 }
 
+interface FollowData {
+  user: string,
+  _id: string,
+  followedAt: string
+}
+
 interface getUserProfileRes {
   _id: string,
   name: string,
   gender: GenderEnum,
   avatar: string,
-  following: string[],
-  followers: string[],
+  following: FollowData[],
+  followers: FollowData[],
   createdAt: string,
   updatedAt: string
 }

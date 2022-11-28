@@ -1,7 +1,15 @@
 <script lang="ts" setup>
-const { setUserProfile } = useStore()
+import { useUserStore } from '@/store/userStore'
 
-setUserProfile()
+const userStore = useUserStore()
+
+Promise.all([
+  userStore.fetchUserProfile,
+  userStore.fetchUserFollowingList
+])
+
+// userStore.fetchUserProfile()
+// userStore.fetchUserFollowingList()
 </script>
 
 <template>

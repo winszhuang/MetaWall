@@ -3,20 +3,21 @@ import { ref } from 'vue'
 import { GenderEnum } from '@/enum/gender'
 import { UploadHandler } from '@/components/Uploader.vue'
 import { postImage } from '@/services/imageService'
-import { injectKeyForReFetchUserProfileFunc, injectKeyForUserProfile } from '@/constants/injectionKey'
 import { updateUserProfile } from '@/services/userService'
 import { correctImageUrl } from '@/helpers/correctImageUrl'
 import { ResponseStatusEnum } from '@/enum/responseStatusEnum'
+import { useUserStore } from '@/store/userStore'
+import { storeToRefs } from 'pinia'
+
+const userStore = useUserStore()
+const { userProfile } = storeToRefs(userStore)
+
+userStore.fetchUserProfile()
 
 const imgUrl = ref('')
 const currentErrorMessage = ref('')
 const isFileFormatCorrect = ref(true)
-const userProfile = ref({ name: '', avatar: '', gender: GenderEnum.Male })
-const reFetchUserProfileFunc = inject(injectKeyForReFetchUserProfileFunc)
-
-watch(inject(injectKeyForUserProfile), (value) => {
-  userProfile.value = { ...unref(value) }
-}, { immediate: true })
+const localUserProfile = ref({ name: '', avatar: '', gender: GenderEnum.Male })
 
 const handleAfterUpload: UploadHandler = async (data) => {
   isFileFormatCorrect.value = data.info.success
@@ -27,31 +28,44 @@ const handleAfterUpload: UploadHandler = async (data) => {
 
   const result = (await postImage(data.file)).data
   if (result.imageUrl.includes('images/')) {
-    userProfile.value.avatar = result.imageUrl.split('images/')[1]
+    // localUserProfile.value.avatar = result.imageUrl.split('images/')[1]
   }
 }
 
 const submit = async () => {
-  const result = await updateUserProfile(userProfile.value)
-  if (result.status === ResponseStatusEnum.Success) {
-    await reFetchUserProfileFunc()
+  const result = await updateUserProfile(localUserProfile.value)
+  if (result.status === ResponseStatusEnum.Fail) {
+    return
   }
+  alert('更新成功')
+
+  await userStore.fetchUserProfile()
 }
+
+// watch(userProfile, (data) => {
+//   if (data) {
+//     localUserProfile.value = { ...data }
+//   }
+// }, { immediate: true })
 
 </script>
 
 <template>
   <div class="mx-4 xs:w-80 xs:mx-0 font-noto">
     <div class="flex flex-col items-center">
+      <div>
+        {{ localUserProfile?.name }}
+      </div>
+      ---
       <!-- 上傳圖片 -->
       <AvatorUploader
-        :image-url="correctImageUrl(userProfile.avatar)"
+        :image-url="correctImageUrl(localUserProfile.avatar)"
         text="上傳大頭照"
         @update="handleAfterUpload"
       />
 
       <Inputer
-        v-model:value="userProfile.name"
+        v-model:value="localUserProfile.name"
         class="mb-4"
         title="暱稱"
         placeholder="請輸入暱稱"
@@ -69,14 +83,14 @@ const submit = async () => {
             <div class="flex items-center justify-center mr-3">
               <input
                 id="item1"
-                v-model="userProfile.gender"
+                v-model="localUserProfile.gender"
                 :value="GenderEnum.Male"
                 name="radio"
                 type="radio"
                 checked="true"
                 class="relative w-5 h-5 accent-black after:border-2 cursor-pointer
                   after:absolute after:w-full after:h-full after:rounded-[50px]"
-                @click="userProfile.gender = GenderEnum.Male"
+                @click="localUserProfile.gender = GenderEnum.Male"
               >
             </div>
             <span>
@@ -90,13 +104,13 @@ const submit = async () => {
             <div class="flex items-center justify-center mr-3">
               <input
                 id="item2"
-                v-model="userProfile.gender"
+                v-model="localUserProfile.gender"
                 :value="GenderEnum.Female"
                 name="radio"
                 type="radio"
                 class="relative w-5 h-5 accent-black after:border-2 cursor-pointer
                   after:absolute after:w-full after:h-full after:rounded-[50px]"
-                @click="userProfile.gender = GenderEnum.Female"
+                @click="localUserProfile.gender = GenderEnum.Female"
               >
             </div>
             <span>

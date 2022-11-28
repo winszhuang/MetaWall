@@ -7,5 +7,6 @@ export enum RoutePathEnum {
   Register = '/register',
   Setting = '/setting',
   EditName = '/setting/editName',
-  ResetPassword = '/setting/resetPassword'
+  ResetPassword = '/setting/resetPassword',
+  SpecificUser = '/:userId'
 }
